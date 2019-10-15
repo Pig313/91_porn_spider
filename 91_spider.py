@@ -46,6 +46,8 @@ while flag <= 100:
         base_req = requests.get(url=base_url + key, headers=headers)
         ifm = re.findall('<iframe width="560" height="315" src="(.*?)" frameborder="0" allowfullscreen></iframe>',
                          base_req.text)
+        if len(ifm) == 0:
+          continue
         bases_req = requests.get(ifm[0], headers=headers)
         video_url = re.findall(r'<source src="(.*?)" type=\'video/mp4\'>',
                                str(bases_req.content, 'utf-8', errors='ignore'))
